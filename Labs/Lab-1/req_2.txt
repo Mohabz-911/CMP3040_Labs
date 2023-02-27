@@ -1,0 +1,41 @@
+#include <avr/io.h>
+#include <util/delay.h>
+
+#define SET_BIT(reg,pin) (reg|=(1<<pin))
+#define CLEAR_BIT(reg,pin) (reg&=~(1<<pin))
+#define TOGGLE_BIT(reg,pin) (reg^=(1<<pin))
+
+
+
+void setup() {
+  // put your setup code here, to run once:
+  CLEAR_BIT(DDRB,0);
+  CLEAR_BIT(DDRB,1);
+
+  SET_BIT(DDRC,0);
+  SET_BIT(DDRC,1);
+
+
+
+  //INTIALIZE LEDS
+  CLEAR_BIT(PORTC,0);
+  CLEAR_BIT(PORTC,1);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  _delay_ms(100);
+  if (PINB & (1<<PB0)) {
+    SET_BIT(PORTC,0);
+  } else {
+    CLEAR_BIT(PORTC,0);
+  }
+  _delay_ms(100);
+  if (PINB & (1<<PB1)) {
+    SET_BIT(PORTC,1);
+  } else {
+    CLEAR_BIT(PORTC,1);
+  }
+}
+
+//we have internal pull-up
