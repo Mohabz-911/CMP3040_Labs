@@ -1,0 +1,59 @@
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+
+#define SET_BIT(reg,pin) (reg|=(1<<pin))
+#define CLEAR_BIT(reg,pin) (reg&=~(1<<pin))
+#define TOGGLE_BIT(reg,pin) (reg^=(1<<pin))
+
+
+volatile int iterations = 0;
+
+//ISR(TIMER2_COMPB_vect) {
+//  Serial.print("Entered");
+//  iterations++;
+//  if (iterations == 31) {
+////    TOGGLE_BIT(PORTB, 3);
+//   
+//    iterations = 0;
+//  }
+//}
+
+void timer2_init(){
+  // TIMER 2 CTC MODE
+//  CLEAR_BIT(SREG,7);
+  
+//  SET_BIT(TCCR2B,7);
+  
+//  CLEAR_BIT(TCCR2B,6);
+//  SET_BIT(TCCR2B,3);
+
+
+  
+  
+//  TCCR2B |= 0x07;     // prescaler
+//  SET_BIT(TCCR2B,4);
+//  CLEAR_BIT(TCCR2B,5);
+  // initialize counter
+//  TIMSK2 |= (1<<OCIE2B);
+
+  SET_BIT(TCCR2B,0);
+  SET_BIT(TCCR2B,1);
+  SET_BIT(TCCR2B,2);
+  SET_BIT(TCCR2B,WGM22);
+  OCR2A = 250;
+
+  SET_BIT(TCCR2A, COM2A0);
+  
+  SET_BIT(SREG,7);
+}
+
+int main(void){
+  // connect led to pin PB3
+  Serial.begin(9600);
+  DDRB |= (1 << PB3); 
+  
+  // initialize timer
+  timer2_init();
+  while(1);
+}
