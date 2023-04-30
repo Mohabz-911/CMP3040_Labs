@@ -26,8 +26,6 @@ void req1()
 void req2()
 {
   char i;
-  GPIOD_ODR = 0;
-  GPIOE_ODR = 0;
   for(i = 0; i < 4; i++)
   {
     GPIOD_ODR = GPIOD_ODR ^ (0x1111 << i);

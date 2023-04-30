@@ -1,0 +1,24 @@
+#include "pwm.h"
+
+int main(void)
+{
+    PWM_TIM1_Init(3800);
+
+    //PWM_TIM1_Set_Duty(PE14, 20);
+
+    int duty = 100;
+
+    PWM_TIM1_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL1);
+    
+    PWM_TIM1_Start(_PWM_CHANNEL4, &_GPIO_MODULE_TIM1_CH4_PE14);
+
+    int n = -1;
+    while (1)
+    {
+     duty = duty + n;
+     PWM_TIM1_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL1);
+     
+     if (duty == 0) {
+     n = -1 * n;
+    }
+}
