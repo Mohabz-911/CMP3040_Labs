@@ -2,33 +2,35 @@
 
 int main(void)
 {
-    PWM_TIM4_Init(4000);
 
-    //PWM_TIM1_Set_Duty(PE14, 20);
+    unsigned int period = 0;
+    period = PWM_TIM4_Init(4000);
 
-    int duty = 100;
+   
 
-    PWM_TIM4_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL1);
-    PWM_TIM4_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL2);
-    PWM_TIM4_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL3);
-    PWM_TIM4_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL4);
+    double duty = 1.0;
+
+    PWM_TIM4_Set_Duty(duty * period, _PWM_NON_INVERTED, _PWM_CHANNEL1);
+    PWM_TIM4_Set_Duty(duty * period, _PWM_NON_INVERTED, _PWM_CHANNEL2);
+    PWM_TIM4_Set_Duty(duty * period, _PWM_NON_INVERTED, _PWM_CHANNEL3);
+    PWM_TIM4_Set_Duty(duty * period, _PWM_NON_INVERTED, _PWM_CHANNEL4);
     
     PWM_TIM4_Start(_PWM_CHANNEL1, &_GPIO_MODULE_TIM4_CH1_PD12);
     PWM_TIM4_Start(_PWM_CHANNEL2, &_GPIO_MODULE_TIM4_CH2_PD13);
     PWM_TIM4_Start(_PWM_CHANNEL3, &_GPIO_MODULE_TIM4_CH3_PD14);
     PWM_TIM4_Start(_PWM_CHANNEL3, &_GPIO_MODULE_TIM4_CH4_PD15);
 
-    int n = -1;
+    int n = -0.01;
     while (1)
     {
      duty = duty + n;
      
-     PWM_TIM4_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL1);
-     PWM_TIM4_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL2);
-     PWM_TIM4_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL3);
-     PWM_TIM4_Set_Duty(duty, _PWM_NON_INVERTED, _PWM_CHANNEL4);
+    PWM_TIM4_Set_Duty(duty * period, _PWM_NON_INVERTED, _PWM_CHANNEL1);
+    PWM_TIM4_Set_Duty(duty * period, _PWM_NON_INVERTED, _PWM_CHANNEL2);
+    PWM_TIM4_Set_Duty(duty * period, _PWM_NON_INVERTED, _PWM_CHANNEL3);
+    PWM_TIM4_Set_Duty(duty * period, _PWM_NON_INVERTED, _PWM_CHANNEL4);
      
-     if (duty == 0) {
+     if (duty == 0 || duty == 1) {
      n = -1 * n;
     }
 }
